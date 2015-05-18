@@ -7,7 +7,6 @@ Some changes for 1.6.4 IDE
 added #include <SPI.h>
 Changes for Funduino JoyStick Shield
 Button and Nokia pins
-Two string uses F
 zoomx
 int up_button = 2;
 int down_button = 4;
@@ -95,7 +94,7 @@ void setup()
   display.setTextSize(2);          //Initial Display
   display.setTextColor(BLACK);
   display.setCursor(10, 15);
-  display.print(F("SNAKE"));
+  display.print("SNAKE");
   display.display();
   delay(4000);
   display.clearDisplay();
@@ -314,7 +313,7 @@ void direct()                  //Check if user pressed any keys and change direc
     {
       display.setCursor(25, 10);
       display.setTextSize(1);
-      display.print(F("PAUSED"));
+      display.print("PAUSED");
       display.setCursor(40, 30);
       display.print(i);
       display.display();

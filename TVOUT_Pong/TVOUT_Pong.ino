@@ -1,3 +1,11 @@
+/*
+
+TVOUT_Pong
+
+PAL version
+
+*/
+
 #include <TVout.h>
 #include "Paddle.h"
 #include "Controller.h"
@@ -18,7 +26,7 @@ void setup() {
   pinMode(5, INPUT);
   pinMode(6, INPUT);
   
-  out.start_render(_NTSC);
+  out.start_render(_PAL);
   out.clear_screen();
 }
 

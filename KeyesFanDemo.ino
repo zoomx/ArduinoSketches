@@ -1,3 +1,9 @@
+/*
+KeyesFanDemo
+
+Demo of the Keyes fan board
+
+*/
 int INA = 9;
 int INB = 8;
 void setup() {

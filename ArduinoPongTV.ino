@@ -5,6 +5,7 @@
  *  updated by James Bruce (http://www.makeuseof.com/tag/author/jbruce
  * A simple implementation of Pong on the Arduino using a TV for output.
  *
+ * Changed from NTSC to PAL
  */
 #include <TVout.h>
 #include <fontALL.h>
@@ -151,7 +152,7 @@ void setup()  {
     //Serial.begin(9600);
   x=0;
   y=0;
-  TV.begin(_NTSC);       //for devices with only 1k sram(m168) use TV.begin(_NTSC,128,56)
+  TV.begin(_PAL);       //for devices with only 1k sram(m168) use TV.begin(_NTSC,128,56)
   ballX = TV.hres() / 2;
   ballY = TV.vres() / 2;
 //  pinMode(BUTTON_ONE_PIN, INPUT);      // sets the digital pin as output

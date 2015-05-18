@@ -36,7 +36,7 @@ void setup() {
 
 
   Serial.begin(9600);
-  Serial.println("Olympus Remote 01");
+  Serial.println("Olympus Remote 02");
 
   Serial.println("Five blinks");
   for(i=0;i<5;i++){
