@@ -1,3 +1,11 @@
+/*
+
+Added a #define for joystick and for min max joystick
+
+*/
+
+
+
 void drawShip(byte ShipX, byte ShipY) {
   display.fillRect(ShipX-2, ShipY-3, 3, 2, BLACK);
   display.fillRect(ShipX-2, ShipY+2, 3, 2, BLACK);
@@ -43,8 +51,8 @@ void initGame(byte lvl) {
 }
 
 void moveShip() {
-  joyX = analogRead(0);
-  short int dir = map(joyX, 0, 1023, -5, 5); 
+  joyX = analogRead(JOY_ANALOG_PIN);
+  short int dir = map(joyX, 0, JOY_MAX_VALUE, -5, 5); 
   if (dir != 0) { 
     dir = dir < 0 ? -1 : 1;
     display.fillRect(ship->getX()-6, ship->getY()-7, 7, 15, WHITE);
