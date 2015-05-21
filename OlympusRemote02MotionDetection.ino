@@ -1,7 +1,7 @@
 /*
 http://luckylarry.co.uk/arduino-projects/arduino-motion-triggered-camera/
  
- zoomx@tiscalinet.it
+ zoomx@ tiscalinet. it
  20141103
  changed IR pin pinIRLED from 13 to 12
  changed pinLED from 9 to 13
