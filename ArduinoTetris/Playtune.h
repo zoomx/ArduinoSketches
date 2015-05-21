@@ -28,6 +28,9 @@
 *  19 January 2011, L.Shustek, V1.0: Initial release.
 *  10 June 2013, L. Shustek, V1.3
 *     - change to be compatible with Arduino IDE version 1.0.5
+*  24 February 2015, jurs
+*     - change to be compatible with Arduino IDE version 1.6.3
+*     http://forum.arduino.cc/index.php?topic=303156.msg2109657#msg2109657
 */
 
 #ifndef Playtune_h
@@ -39,7 +42,7 @@ class Playtune
 {
 public:
  void tune_initchan (byte pin);		// assign a timer to an output pin
- void tune_playscore (byte *score);		// start playing a polyphonic score
+ void tune_playscore (const byte *score);		// start playing a polyphonic score
  volatile static boolean tune_playing;	// is the score still playing?
  void tune_stopscore (void);			// stop playing the score
  void tune_delay (unsigned msec);		// delay in milliseconds

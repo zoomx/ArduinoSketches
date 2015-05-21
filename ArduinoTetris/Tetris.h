@@ -11,8 +11,12 @@ struct Block {
   int y;
 };
 
-// Tetris Theme A by Gori Fater. (CC BY-NC-SA 3.0)
-byte PROGMEM tetrisScore [] = {
+// Tetris Theme A by Gori Fater. (CC BY-NC-SA 3.0) 
+//added const, required by progmem in IDE 1.6.3 - zoomx
+//This break Playtune that has to be changed
+//http://forum.arduino.cc/index.php?topic=303156.0
+
+const byte PROGMEM tetrisScore [] = {
 0,4,0x90,71,0x91,76,0x92,40,1,5,0,14,0x82,0,232,0x80,0x81,0,0,0x90,68,
 0x91,71,0x92,40,0,14,0,216,0x80,0,14,0x81,0,0,0x90,69,0x91,72,0,14,0x82,
 0,219,0x80,0,4,0,9,0x81,0,0,0x90,71,0x91,74,0x92,40,0,14,0,100,0,120,

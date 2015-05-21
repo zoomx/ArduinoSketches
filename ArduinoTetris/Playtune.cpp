@@ -32,6 +32,11 @@
 *     - add special TESLA_COIL mods
 *  10 June 2013, L. Shustek, V1.3
 *     - change to be compatible with Arduino IDE version 1.0.5
+*  24 February 2015, jurs
+*     - change to be compatible with Arduino IDE version 1.6.3
+*     http://forum.arduino.cc/index.php?topic=303156.msg2109657#msg2109657
+*     Len Shustek made is own update here
+*     https://github.com/LenShustek/arduino-playtune
 *
 */
 
@@ -186,9 +191,9 @@
 #define DBUG 0       /* debugging? */
 #define TESLA_COIL 0 /* special Tesla Coil version? */
 
-#include <avr/arduino.h>
+#include <Arduino.h>
 
-#include "playtune.h"
+#include "Playtune.h"
 
 #if defined(__AVR_ATmega8__)
 #define TCCR2A TCCR2
@@ -261,8 +266,10 @@ volatile boolean doing_delay = false;          /* are we using it for a tune_del
 volatile unsigned long wait_toggle_count;      /* countdown score waits */
 volatile unsigned long delay_toggle_count;     /* countdown tune_ delay() delays */
 
-volatile byte *score_start = 0;
-volatile byte *score_cursor = 0;
+// volatile 
+const byte *score_start = 0;
+// volatile 
+const byte *score_cursor = 0;
 volatile boolean Playtune::tune_playing = false;
 
 // Table of midi note frequencies * 2
@@ -569,7 +576,7 @@ void tune_stopnote (byte chan) {
 // Start playing a score
 //-----------------------------------------------
 
-void Playtune::tune_playscore (byte *score) {
+void Playtune::tune_playscore (const byte *score) {
     score_start = score;
     score_cursor = score;
     tune_stepscore();  /* execute initial commands */
@@ -782,5 +789,6 @@ ISR(TIMER5_COMPA_vect) {  // TIMER 5
 }
 
 #endif
+
 
 

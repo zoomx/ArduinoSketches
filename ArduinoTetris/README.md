@@ -1,9 +1,10 @@
 ArduinoTetris
 =============
 
-Classic Tetris game running on an Arduino-compatible [MicroView](http://www.microview.io).
+Classic Tetris game running on Arduino, Nokia 5110 LDC and a Funduino Joystick Shield
+Problems with buttons.
 
-MicroView Arduino-compatible C port by Richard Birkby
+Original MicroView Arduino-compatible C port by Richard Birkby
 
 Original JavaScript [implementation](https://github.com/jakesgordon/javascript-tetris) - [Jake Gordon](https://twitter.com/jakesgordon)
 
