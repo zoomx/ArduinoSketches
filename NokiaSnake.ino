@@ -1,32 +1,39 @@
-/*
-Snake Game by Abhinav Faujdar 
+/*********************************************************
+
+
+*********************************
+* Snake Game by Abhinav Faujdar *
+*********************************
+
 
 https://www.youtube.com/watch?v=JUSWurw_I_o
 
-Some changes for 1.6.4 IDE
+Some changes for 1.6.4 IDE by zoomx May 2015
 added #include <SPI.h>
-Changes for Funduino JoyStick Shield
-Button and Nokia pins
-zoomx
+Changes Buttons, Nokia and speaker pins for Funduino JoyStick Shield
+
+Funduino Joystick Shield buttons
 int up_button = 2;
 int down_button = 4;
 int left_button = 5;
 int right_button = 3;
-int start_button = 6;
-int select_button = 7;
+int start_button = 6; not used here
+int select_button = 7; not used here
 int analog_button = 8;
 int x_axis = A0;
 int y_axis = A1;
 
+Funduino Joystick Shield Nokia pins
+pin 13 - Serial clock out (SCLK)
+pin 12 - Serial data out (DIN)
+pin 11 - Data/Command select (D/C)
+pin 10 - LCD chip select (CS)
+pin 9  - LCD reset (RST)
 
-// pin 13 - Serial clock out (SCLK)
-// pin 12 - Serial data out (DIN)
-// pin 11 - Data/Command select (D/C)
-// pin 10 - LCD chip select (CS)
-// pin 9 - LCD reset (RST)
-*/
-// library and diagram: :http://www.sendspace.com/file/2hfu5k
-//not available anymore
+library and diagram: :http://www.sendspace.com/file/2hfu5k
+not available anymore in May 2015
+
+****************************************************************/
 
 #include <SPI.h>
 #include <EEPROM.h>
@@ -35,18 +42,19 @@ int y_axis = A1;
 
 
 Adafruit_PCD8544 display = Adafruit_PCD8544(13, 12, 11, 10, 9);  //Initialise display object
-// was Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);  //Initialise display object
+// was Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);
 
+#define CONTRAST 70
 
 /******* constants *****/
 #define LEFT 5    //was 8
-#define DOWN 4  //was 10
-#define RIGHT 3  //was 11
-#define UP 2  // was 12
-#define PAUSE 6  //was 9
+#define DOWN 4    //was 10
+#define RIGHT 3   //was 11
+#define UP 2      // was 12
+#define PAUSE 8   //was 9
 #define MAX_WIDTH 84        //display 84x48
 #define MAX_HEIGHT 48
-#define speakerPin 2
+#define speakerPin 6
 
 boolean dl = false, dr = false, du = false, dd = false; // to check in which direction the snake is currently moving
 
@@ -64,6 +72,7 @@ int score = 0, flag = 0;
 void setup()
 {
   Serial.begin(9600);         //Begin Serial Communication
+  Serial.println("Nokia Snake by Abhinav Faujdar");
   display.begin();
   display.clearDisplay();
 
@@ -83,18 +92,16 @@ void setup()
   digitalWrite(DOWN, HIGH);
   digitalWrite(PAUSE, HIGH);
 
-
-  display.setContrast(25);
+  display.setContrast(CONTRAST);
   slength = 8;               //Start with snake length 8
 
   xegg = (display.width()) / 2;
-
   yegg = (display.height()) / 2;
 
   display.setTextSize(2);          //Initial Display
   display.setTextColor(BLACK);
   display.setCursor(10, 15);
-  display.print("SNAKE");
+  display.print(F("SNAKE"));
   display.display();
   delay(4000);
   display.clearDisplay();
@@ -118,12 +125,8 @@ void setup()
 //Movement Begins after here
 void loop()
 {
-
-
   movesnake();    //This is called endlessly
-
 }
-
 
 void movesnake()
 {
@@ -133,7 +136,6 @@ void movesnake()
   u = digitalRead(UP);
   p = digitalRead(PAUSE);
 
-
   if (flag == 0)
   {
     direct();    //When key is pressed,this will change the coordinates accordingly and set flag to 1
@@ -141,11 +143,8 @@ void movesnake()
   }
 
 
-
-
   if (millis() % time == 0) //this condition becomes true after every 'time' milliseconds...millis() returns the time since launch of program
   {
-
 
     if (flag == 0)                                //flag 0 means no directional key has been pressed in the last 'time' milliseconds
     {
@@ -205,7 +204,6 @@ void checkgame()       //Game over checker
   {
     if (x[i] == x[0] && y[i] == y[0])
     {
-
       bh = EEPROM.read(1);
       bl = EEPROM.read(0);
       high = (((0xff00 + bh) << 8) + bl);
@@ -235,7 +233,6 @@ void checkgame()       //Game over checker
       display.display();
       beep(20, 5000);
 
-
       display.clearDisplay();
 
       slength = 8;            //Resetting the values
@@ -245,7 +242,6 @@ void checkgame()       //Game over checker
       redraw();              //Restart game by drawing snake with the resetted length and score
     }
   }
-
 }
 
 void checkegg()      //Snake meets egg
@@ -260,12 +256,8 @@ void checkegg()      //Snake meets egg
       {
         time -= 20;
       }
-
       display.fillRect(xegg, yegg, 3, 3, WHITE);  //Delete the consumed egg
-
       display.display();
-
-
       beep(35, beeptime);             //Beep with a sound of 35Hz for 'beeptime' ms
       xegg = random(1, 80);           //Create New egg randomly
       yegg = random(1, 40);
@@ -307,13 +299,12 @@ void direct()                  //Check if user pressed any keys and change direc
   else if (p == LOW)            //Pause game for 5 seconds
   {
     display.clearDisplay();
-
     display.setTextColor(BLACK);
     for (i = 5; i > 0; i--)
     {
       display.setCursor(25, 10);
       display.setTextSize(1);
-      display.print("PAUSED");
+      display.print(F("PAUSED"));
       display.setCursor(40, 30);
       display.print(i);
       display.display();
@@ -328,12 +319,9 @@ void direct()                  //Check if user pressed any keys and change direc
 void drawsnake()        //Draw snake and egg at newly changed positions
 {
   display.fillRect(xegg, yegg, 3, 3, BLACK);   //Draw egg at new pos
-
   display.drawCircle(x[0], y[0], 1, BLACK);    //Draw new head of snake
   display.drawCircle(x[slength], y[slength], 1, WHITE); //Delete old tail of snake
-
   display.display();
-
 }
 
 void redraw()   //Redraw ALL POINTS of snake and egg
@@ -342,7 +330,6 @@ void redraw()   //Redraw ALL POINTS of snake and egg
   for (i = 0; i < slength; i++)
   {
     display.drawCircle(x[i], y[i], 1, BLACK);
-
   }
   display.display();
 }
@@ -361,7 +348,6 @@ void beep (int freq, long tb)          //This function creates a sound of freque
     digitalWrite(speakerPin, LOW);   //Low for half cycle
     delay(delayAmount);
   }
-
   delay(2);
   //a little delay to make all notes sound separate
 }
