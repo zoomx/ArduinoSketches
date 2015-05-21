@@ -1,21 +1,41 @@
-/*
-  2014 Mahyar Koshkouei
-  
-  Minesweeper
+/*************************
+*  2014 Mahyar Koshkouei *
+* 	                 *
+*  Minesweeper           *
+**************************
+
+A Minesweeper game for the Arduino using the Nokia 5110 LCD
+
+Unfortunately it seems that it is incomplete. There is only code to move cursor and nothin else.
+
+MIT license
+
+Very few changes by Zoomx May 2015
+
+I use the same shield but a standard Nokia LCD
+
+Funduino Joystick Shield Nokia pins
+pin 13 - Serial clock out (SCLK)
+pin 12 - Serial data out (DIN)
+pin 11 - Data/Command select (D/C)
+pin 10 - LCD chip select (CS)
+pin 9  - LCD reset (RST)
+
+added #include <SPI.h> now required
+Added a define for LCD contrast
+Added a serial port sketch identification
+works with 1.6.4 IDE and 1.6.7 board
 */
 
+#define CONTRAST 50
+
+#include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_PCD8544.h>
 
-// Below are hte usual pins for connecting to a Nokia 5110 LCD
-// pin 7 - Serial clock out (SCLK)
-// pin 6 - Serial data out (DIN)
-// pin 5 - Data/Command select (D/C)
-// pin 4 - LCD chip select (CS)
-// pin 3 - LCD reset (RST)
 
-Adafruit_PCD8544 display = Adafruit_PCD8544(13, 11, 7, 12, 10);
-// My Nokia 5110 LCD requires different pins than the usual because it's a wierd one.
+Adafruit_PCD8544 display = Adafruit_PCD8544(13, 12, 11, 10, 9);  //was(13, 11, 7, 12, 10);
+
 
 // Below are variable for use with a Funduino Joystick Shield V1.A, although most of the buttons aren't needed for this game.
 byte up_button = 2;
@@ -31,7 +51,7 @@ byte buttons[] = {up_button, down_button, left_button, right_button, start_butto
 
 
 int coordinates[12][6];    // Multidimensional array, This function has a huge lack of documentation.
-     // Also, I can't put 'int coordinates[gridSizeX][gridSizeY];' without error :(
+// Also, I can't put 'int coordinates[gridSizeX][gridSizeY];' without error :(
 int gridSizeY = 5;         // Grid size - 1
 int gridSizeX = 11;
 byte arrayY = 0;
@@ -49,34 +69,36 @@ boolean btnPress = false;
 //------------------------------------------------------------------------------
 // 7x7
 const unsigned char PROGMEM box [] = {
-0xFE, 0x82, 0x82, 0x82, 0x82, 0x82, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 
+  0xFE, 0x82, 0x82, 0x82, 0x82, 0x82, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
 // 7x7
 const unsigned char PROGMEM boxCursor [] = {
-0xFE, 0x92, 0xD6, 0xBA, 0x92, 0x82, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 
+  0xFE, 0x92, 0xD6, 0xBA, 0x92, 0x82, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
 
 void setup() {
+  Serial.begin(9600);
+  Serial.println("Minesweeper by Mahyar Koshkouei");
   // Initialise the Joystick shield
   for (int i; i < 7; i++)
   {
-   pinMode(buttons[i], INPUT);
-   digitalWrite(buttons[i], HIGH);
+    pinMode(buttons[i], INPUT);
+    digitalWrite(buttons[i], HIGH);
   }
-  
+
   display.begin();
   // init done
 
   // you can change the contrast around to adapt the display
   // for the best viewing!
-  display.setContrast(50);
+  display.setContrast(CONTRAST);
   delay(500);
   display.clearDisplay();   // clears the screen and buffer
-  
 
-  
+
+
   // Initialise the array
   for (byte arrayY = 0; arrayY < gridSizeY; arrayY++) {
     for (byte arrayX = 0; arrayX < gridSizeX; arrayX++) {
@@ -84,33 +106,33 @@ void setup() {
       xDraw = arrayX * 6;
       yDraw = arrayY * 6;
       display.drawBitmap(xDraw, yDraw, box, 7, 7, BLACK);
-      }
     }
-  
+  }
+
   display.display();
 }
 
 void loop() {
   coordinates[x][y] = 0;
-  
+
   // Look for inputs
   if ((digitalRead(left_button) == 0) && (x > 0)) {
     x--;
     btnPress = true;
-  } else if((digitalRead(right_button) == 0) && (x < gridSizeX)) {
+  } else if ((digitalRead(right_button) == 0) && (x < gridSizeX)) {
     x++;
     btnPress = true;
-  } else if((digitalRead(up_button) == 0) && (y > 0)) {
+  } else if ((digitalRead(up_button) == 0) && (y > 0)) {
     y--;
     btnPress = true;
-  } else if((digitalRead(down_button) == 0) && (y < gridSizeY)) {
+  } else if ((digitalRead(down_button) == 0) && (y < gridSizeY)) {
     y++;
     btnPress = true;
   }
-  
+
   delay(100);
-  
-  if (btnPress = true) { 
+
+  if (btnPress = true) {
     coordinates[x][y] = 1;
 
     for (arrayY = 0; arrayY < gridSizeY + 1; arrayY++) {
@@ -124,15 +146,15 @@ void loop() {
         }
       }
     }
-    
-  display.setTextSize(1);
-  display.setTextColor(BLACK, WHITE);
-  display.setCursor(50,30);
-  display.print("("); display.print(x); display.print(","); display.print(y); display.print(")");
-   
-  display.display();
-  display.clearDisplay();   // clears the screen and buffer
-  btnPress = false;
+
+    display.setTextSize(1);
+    display.setTextColor(BLACK, WHITE);
+    display.setCursor(50, 30);
+    display.print("("); display.print(x); display.print(","); display.print(y); display.print(")");
+
+    display.display();
+    display.clearDisplay();   // clears the screen and buffer
+    btnPress = false;
   }
 
 
