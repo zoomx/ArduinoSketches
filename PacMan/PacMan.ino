@@ -11,6 +11,8 @@ nop();
  Arduino Pac-Man for TVout
  By Allen C. Huffman
  www.subethasoftware.com
+ http://subethasoftware.com/category/arduino/pac-man/
+ https://github.com/allenhuffman/PacMan
  
  An attempt to recreate the classic 1980s game.
  
@@ -26,6 +28,9 @@ nop();
     eat them (detect, score, don't redraw).
  3. Fruits.
  4. Intermission scenes, high score, title screen, etc.
+ 
+Some modifications for PAL and Funduino Joystick Shield
+by Zoomx 2015 05 30
  -----------------------------------------------------------------------------*/
 #define VERSION "0.0"
 
@@ -125,7 +130,7 @@ void setup()
   //drawTileGrid();
   //drawWallTiles();
   //drawTileCenters();
-  delay(2000);  //zoomx
+  TV.delay(2000);  //zoomx
 }
 
 void loop()

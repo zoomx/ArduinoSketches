@@ -1,4 +1,4 @@
-PROGMEM prog_uchar level_bitmap[] =
+PROGMEM const unsigned char level_bitmap[] =
 {
   41,14,                                       
   0b11000000, 0b11111001, 0b10000111, 0b00111110, 0b00011000, 0b00000000, // ##      #####  ##    ###  #####    ##    
@@ -17,7 +17,7 @@ PROGMEM prog_uchar level_bitmap[] =
   0b01000000, 0b01100000, 0b00001000, 0b00011000, 0b00001000, 0b00000000, //  #       ##         #      ##       #    
 };
 
-PROGMEM prog_uchar number_0_bitmap[] =
+PROGMEM const unsigned char number_0_bitmap[] =
 {
   11,14,
   0b00000000, 0b00000000, //            
@@ -36,7 +36,7 @@ PROGMEM prog_uchar number_0_bitmap[] =
   0b00111111, 0b00000000, //   ######   
 };
 
-PROGMEM prog_uchar number_1_bitmap[] =
+PROGMEM const unsigned char number_1_bitmap[] =
 {
   11,14,
   0b00000000, 0b00000000, //            
@@ -55,7 +55,7 @@ PROGMEM prog_uchar number_1_bitmap[] =
   0b00000110, 0b00000000, //      ##    
 };
 
-PROGMEM prog_uchar number_2_bitmap[] =
+PROGMEM const unsigned char number_2_bitmap[] =
 {
   11,14,
   0b00000110, 0b00000000, //      ##    
@@ -74,7 +74,7 @@ PROGMEM prog_uchar number_2_bitmap[] =
   0b01111110, 0b00000000, //  ######    
 };
 
-PROGMEM prog_uchar number_3_bitmap[] =
+PROGMEM const unsigned char number_3_bitmap[] =
 {
   11,14,
   0b00000000, 0b00000000, //            
@@ -93,7 +93,7 @@ PROGMEM prog_uchar number_3_bitmap[] =
   0b00011111, 0b00000000, //    #####   
 };
 
-PROGMEM prog_uchar number_4_bitmap[] =
+PROGMEM const unsigned char number_4_bitmap[] =
 {
   11,14,
   0b00000000, 0b00000000, //            
@@ -112,7 +112,7 @@ PROGMEM prog_uchar number_4_bitmap[] =
   0b00000011, 0b00000000, //       ##   
 };
 
-PROGMEM prog_uchar number_5_bitmap[] =
+PROGMEM const unsigned char number_5_bitmap[] =
 {
   11,14,
   0b00000011, 0b00000000, //       ##   
@@ -131,7 +131,7 @@ PROGMEM prog_uchar number_5_bitmap[] =
   0b00011111, 0b00000000, //    #####   
 };
 
-PROGMEM prog_uchar number_6_bitmap[] =
+PROGMEM const unsigned char number_6_bitmap[] =
 {
   11,14,	
   0b00000000, 0b00000000, //            
@@ -150,7 +150,7 @@ PROGMEM prog_uchar number_6_bitmap[] =
   0b00111111, 0b00000000, //   ######   
 };
 
-PROGMEM prog_uchar number_7_bitmap[] =
+PROGMEM const unsigned char number_7_bitmap[] =
 {
   11,14,	
   0b00000001, 0b00000000, //        #   
@@ -169,7 +169,7 @@ PROGMEM prog_uchar number_7_bitmap[] =
   0b00011100, 0b00000000, //    ###     
 };
 
-PROGMEM prog_uchar number_8_bitmap[] =
+PROGMEM const unsigned char number_8_bitmap[] =
 {
   11,14,
   0b00001111, 0b00000000, //     ####   
@@ -188,7 +188,7 @@ PROGMEM prog_uchar number_8_bitmap[] =
   0b01111110, 0b00000000, //  ######    
 };
 
-PROGMEM prog_uchar number_9_bitmap[] =
+PROGMEM const unsigned char number_9_bitmap[] =
 {
   11,14,
   0b00000000, 0b00000000, //            

@@ -1,3 +1,14 @@
+/*
+ARDUPONG
+By Ramon Imbao
+https://github.com/ramonimbao/Ardupong
+
+Sme modificarions by Zoomx 2015 05 30
+File renamed from Pong_2P.ino to Ardupong.ino
+changed from NTSC to PAL
+Works but stop on Game OVer
+
+*/
 #include <font4x6.h>
 #include <font8x8.h>
 #include <TVout.h>
@@ -62,7 +73,7 @@ void setup() {
   pinMode(11, OUTPUT);
   pinMode(4, INPUT);
 
-  TV.begin(NTSC); // (128x96 screen size)
+  TV.begin(PAL); // (128x96 screen size)
   TV.select_font(font4x6);
 
   // Let's draw the playfield
@@ -72,9 +83,9 @@ void setup() {
 void loop() {
   if (gameOver == false) {
     // Handle P1 input
-    p1_y = (float)analogRead(A0)/1023 * 74;
+    p1_y = (float)analogRead(A0)/670 * 74;   //was 1023
     // Handle P2 input
-    p2_y = (float)analogRead(A1)/1023 * 74;
+    p2_y = (float)analogRead(A1)/670 * 74;
 
     // Handle ball movement and collision
     ball_x += bdx;

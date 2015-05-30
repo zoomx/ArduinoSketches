@@ -1,4 +1,4 @@
-PROGMEM prog_uchar slice_bread_bitmap[] =
+PROGMEM const unsigned char slice_bread_bitmap[] =
 {
   72,72,
   0b00000000, 0b00000000, 0b00000000, 0b00111111, 0b11111111, 0b11111111, 0b11110000, 0b00000000, 0b00000000, //                           ##########################                    
@@ -75,7 +75,7 @@ PROGMEM prog_uchar slice_bread_bitmap[] =
   0b00111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000, //   ################################################################      
 };
 
-PROGMEM prog_uchar salami_bitmap[] =
+PROGMEM const unsigned char salami_bitmap[] =
 {
   72,72,
   0b00000000, 0b00000000, 0b00000000, 0b00111111, 0b11111111, 0b11111111, 0b11110000, 0b00000000, 0b00000000, //                           ##########################                    
@@ -152,7 +152,7 @@ PROGMEM prog_uchar salami_bitmap[] =
   0b00111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000, //   ################################################################      
 };
 
-PROGMEM prog_uchar cheese_bitmap[] =
+PROGMEM const unsigned char cheese_bitmap[] =
 {
   72,72,
   0b00000000, 0b00000000, 0b00000000, 0b00111111, 0b11111111, 0b11111111, 0b11110000, 0b00000000, 0b00000000, //                           ##########################                    
@@ -229,7 +229,7 @@ PROGMEM prog_uchar cheese_bitmap[] =
   0b00111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000, //   ################################################################      
 };
 
-PROGMEM prog_uchar jam_bitmap[] =
+PROGMEM const unsigned char jam_bitmap[] =
 {
   72,72,
   0b00000000, 0b00000000, 0b00000000, 0b00111111, 0b11111111, 0b11111111, 0b11110000, 0b00000000, 0b00000000, //                           ##########################                    
@@ -306,7 +306,7 @@ PROGMEM prog_uchar jam_bitmap[] =
   0b00111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000, //   ################################################################      
 };
 
-PROGMEM prog_uchar sprinkles_bitmap[] =
+PROGMEM const unsigned char sprinkles_bitmap[] =
 {
   72,72,
   0b00000000, 0b00000000, 0b00000000, 0b00111111, 0b11111111, 0b11111111, 0b11110000, 0b00000000, 0b00000000, //                           ##########################                    
@@ -383,7 +383,7 @@ PROGMEM prog_uchar sprinkles_bitmap[] =
   0b00111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000, //   ################################################################      
 };
 
-PROGMEM prog_uchar cpu_bitmap[] =
+PROGMEM const unsigned char cpu_bitmap[] =
 {
   10,48,
   0b00011000, 0b00000000, //    ##    
@@ -436,7 +436,7 @@ PROGMEM prog_uchar cpu_bitmap[] =
   0b00000100, 0b00000000, //      #   
 };
 
-PROGMEM prog_uchar you_bitmap[] =
+PROGMEM const unsigned char you_bitmap[] =
 {
   10,48,
   0b01100001, 0b11000000, //  ##    ###
@@ -489,7 +489,7 @@ PROGMEM prog_uchar you_bitmap[] =
   0b00000010, 0b00000000, //       #   
 };
 
-PROGMEM prog_uchar small_slice_bread_bitmap[] =
+PROGMEM const unsigned char small_slice_bread_bitmap[] =
 {
   8,8,
   0b00111110, //   ##### 

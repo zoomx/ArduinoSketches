@@ -1,11 +1,15 @@
 /*
- BREAD SPREAD: http://www.team-arg.org/BRSP-downloads.html
- 
- TV-OUT version 1.0:  http://www.team-arg.org/BRSP-downloads.html
- 
+ BREAD SPREAD: http://www.team-arg.org/TEAM-arg/BRSP-downloads.html 
+
+ By TEAM a.r.g.
+
  made on ARUINDO-JAM IV: http://www.arduino-jam.org
  
  2013 - JO3RI - Bart - David
+ 
+ Modifications by Zoomx 30 05 2015
+ For PAL and Funduino Joystick Shield
+ Buttons logic is negate so digitalRead became !digitalRead
  */
 
 //determine the game
@@ -89,7 +93,7 @@ void loop()
 
   case GAME_SPLASH:
     start_screen();
-      if(digitalRead(2) || digitalRead(4) ||digitalRead(8) ||digitalRead(12))
+      if(!digitalRead(buttonPin0) || !!digitalRead(buttonPin1) ||!digitalRead(buttonPin2) ||!digitalRead(buttonPin3))
       {
         game_state = GAME_INIT;
       }
@@ -114,10 +118,10 @@ void loop()
     stage_update();
     if (millis() >= next_action)
     {
-      boolean pin2 = digitalRead(2);
-      boolean pin4 = digitalRead(4);
-      boolean pin8 = digitalRead(8);
-      boolean pin12 = digitalRead(12);
+      boolean pin2 = !digitalRead(buttonPin0);
+      boolean pin4 = !digitalRead(buttonPin1);
+      boolean pin8 = !digitalRead(buttonPin2);
+      boolean pin12 = !digitalRead(buttonPin3);
 
       if(status_spread == 0)
       {
@@ -162,7 +166,7 @@ void loop()
     break;
 
   case GAME_OVER:
-    if(digitalRead(2) || digitalRead(4) ||digitalRead(8) ||digitalRead(12))
+    if(!digitalRead(2) || !digitalRead(4) ||!digitalRead(8) ||!digitalRead(12))
       {
       TV.clear_screen();
       game_state = GAME_SPLASH;

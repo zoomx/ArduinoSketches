@@ -1,6 +1,6 @@
 #include <avr/pgmspace.h>
 
-PROGMEM prog_uchar arduinojam_logo_bitmap[] =
+PROGMEM const unsigned char arduinojam_logo_bitmap[] =
 {
   96,95,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                                                                 
@@ -100,7 +100,7 @@ PROGMEM prog_uchar arduinojam_logo_bitmap[] =
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b11111111, 0b11111111, 0b11000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                         ##################                                      
 };
 
-PROGMEM prog_uchar made_at_bitmap[] =
+PROGMEM const unsigned char made_at_bitmap[] =
 {
   96,16,
   0b00011111, 0b00011111, 0b00000001, 0b11111000, 0b00011111, 0b11110000, 0b00000001, 0b11111000, 0b00000000, 0b01111110, 0b00011111, 0b11111110, //    #####   #####       ######      #########           ######            ######    ############ 
@@ -121,7 +121,7 @@ PROGMEM prog_uchar made_at_bitmap[] =
   0b01111101, 0b11110111, 0b11001111, 0b10011111, 0b00011111, 0b11111000, 0b00000001, 0b11111000, 0b00000011, 0b11100111, 0b11000001, 0b11110000, //  ##### ##### #####  #####  #####   ##########          ######         #####  #####     #####    
 };
 
-PROGMEM prog_uchar presented_by_bitmap[] =
+PROGMEM const unsigned char presented_by_bitmap[] =
 {
   86,32,
   0b00111110, 0b00111111, 0b10000011, 0b11110000, 0b01110011, 0b11110000, 0b11111000, 0b11111111, 0b10011111, 0b10011111, 0b11100000, //   #####   #######     ######     ###  ######    #####   #########  ######  ########   
@@ -158,7 +158,7 @@ PROGMEM prog_uchar presented_by_bitmap[] =
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00011101, 0b11000001, 0b11000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                    ### ###     ###                                    
 };
 
-PROGMEM prog_uchar team_arg_bitmap[] =
+PROGMEM const unsigned char team_arg_bitmap[] =
 {
   92,32,
   0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11110000, // ############################################################################################
@@ -196,7 +196,7 @@ PROGMEM prog_uchar team_arg_bitmap[] =
 };
 
 
-PROGMEM prog_uchar breadspread_bitmap[] =
+PROGMEM const unsigned char breadspread_bitmap[] =
 {
   124,16,
 
@@ -218,7 +218,7 @@ PROGMEM prog_uchar breadspread_bitmap[] =
   0b00001100, 0b00000000, 0b00000000, 0b00011000, 0b00000000, 0b00011001, 0b11000000, 0b00000011, 0b11100000, 0b01000000, 0b00000000, 0b00000001, 0b10000000, 0b00000001, 0b10011100, 0b00000000, //     ##                     ##              ##  ###            #####      #                     ##              ##  ###      
 };
 
-PROGMEM prog_uchar smash_bitmap[] =
+PROGMEM const unsigned char smash_bitmap[] =
 {
   54,16,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                       
@@ -239,7 +239,7 @@ PROGMEM prog_uchar smash_bitmap[] =
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                       
 };
 
-PROGMEM prog_uchar your_bitmap[] =
+PROGMEM const unsigned char your_bitmap[] =
 {
   42,16,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                           
@@ -260,7 +260,7 @@ PROGMEM prog_uchar your_bitmap[] =
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                           
 };
 
-PROGMEM prog_uchar spread_bitmap[] =
+PROGMEM const unsigned char spread_bitmap[] =
 {
   62,16,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                               
@@ -281,7 +281,7 @@ PROGMEM prog_uchar spread_bitmap[] =
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                               
 };
 
-PROGMEM prog_uchar game_bitmap[] =
+PROGMEM const unsigned char game_bitmap[] =
 {
   48,16,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                 
@@ -302,7 +302,7 @@ PROGMEM prog_uchar game_bitmap[] =
   0b00011100, 0b00000000, 0b00001001, 0b11000111, 0b00011000, 0b00110000, //    ###              #  ###   ###   ##     ##    
 };
 
-PROGMEM prog_uchar over_bitmap[] =
+PROGMEM const unsigned char over_bitmap[] =
 {
   42,16,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                           
@@ -323,7 +323,7 @@ PROGMEM prog_uchar over_bitmap[] =
   0b00000100, 0b00000000, 0b11000000, 0b01100000, 0b00100000, 0b00000000, //      #          ##       ##       #       
 };
 
-PROGMEM prog_uchar score_bitmap[] =
+PROGMEM const unsigned char score_bitmap[] =
 {
   56,16,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                         

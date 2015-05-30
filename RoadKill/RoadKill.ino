@@ -1,5 +1,23 @@
+/***********
+* RoadKill *
+************
+
+by JThr3e
+
+https://github.com/JThr3e/RoadKill-Game
+
+A simple game on the arduino using the TVOut library.
+
+Pins 7 and 9 on the board are used for video output.
+Pin 2 is used for button input.
+
+Some modifications for PAL and Funduino Joystick Shield
+by Zoomx 2015 05 30
+Button logic reversed
+*/
 #include <fontALL.h>
 #include <TVout.h>
+
 boolean gameOver = false;
 boolean gameStart = true;
 int score = 0;
@@ -19,7 +37,8 @@ int pushButton = 2;
 
 void setup()  {
   Serial.begin(9600);
-  TV.begin(NTSC,120,96);
+  Serial.println("RoadKill on TV");
+  TV.begin(PAL,120,96);
   TV.select_font(font6x8);
   Hres = TV.hres();
   Vres = TV.vres();
@@ -37,7 +56,7 @@ void printGame()
 
 int readButon()
 {
-  int buttonState = digitalRead(pushButton);
+  int buttonState = !digitalRead(pushButton);
   Serial.println(buttonState);
   return buttonState;
 }
