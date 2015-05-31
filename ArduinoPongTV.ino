@@ -7,7 +7,8 @@
  * http://www.makeuseof.com/tag/how-to-recreate-the-classic-pong-game-using-arduino/
  * http://pastebin.com/Su0wdEKG
  *
- * Some mods for Funduino Joystick shield and for PAL by zoomx 2015 05 30
+ * Some mods for Funduino Joystick shield and for PAL by zoomx 2015 05 31
+ * Button 2 readded
  * Need improvements
  ********/
 
@@ -16,7 +17,7 @@
 
 #define WHEEL_ONE_PIN 0 //analog
 #define WHEEL_TWO_PIN 1 //analog
-// #define BUTTON_ONE_PIN 2 //digital to start game
+#define BUTTON_ONE_PIN 2 //digital to start game
 // #define BUTTON_TWO_PIN 3 //digital to reset and go back to main menu
 
 #define PADDLE_HEIGHT 14
@@ -67,8 +68,8 @@ void processInputs() {
   // delay(50);
   wheelTwoPosition = analogRead(WHEEL_TWO_PIN);
   // delay(50);
-  //   button1Status = (digitalRead(BUTTON_ONE_PIN));
-  button1Status = true;
+  button1Status = (!digitalRead(BUTTON_ONE_PIN));
+  //button1Status = true;
 
   //  button2Status = (digitalRead(BUTTON_TWO_PIN) == LOW);
   if ((button1Status == 0) && (state == GAME_OVER))
@@ -94,7 +95,7 @@ void drawGameScreen() {
   //but 5 is better than 4
 
   rightPaddleY = ((wheelOnePosition / 5) * (TV.vres() - PADDLE_HEIGHT)) / 128;
-  if (rightPaddleY > 82) rightPaddleY=82;
+  if (rightPaddleY > 82) rightPaddleY = 82;
   x = RIGHT_PADDLE_X;
   for (int i = 0; i < PADDLE_WIDTH; i++) {
     TV.draw_line(x + i, rightPaddleY, x + i, rightPaddleY + PADDLE_HEIGHT, 1);
@@ -102,7 +103,7 @@ void drawGameScreen() {
 
   //draw left paddle
   leftPaddleY = ((wheelTwoPosition / 5) * (TV.vres() - PADDLE_HEIGHT)) / 128;
-  if (leftPaddleY > 82) leftPaddleY=82;
+  if (leftPaddleY > 82) leftPaddleY = 82;
   x = LEFT_PADDLE_X;
   for (int i = 0; i < PADDLE_WIDTH; i++) {
     TV.draw_line(x + i, leftPaddleY, x + i, leftPaddleY + PADDLE_HEIGHT, 1);
@@ -217,14 +218,14 @@ void loop() {
   }
 
   if (state == IN_GAMEB) {
-    if (frame % 1 == 0) { //every third frame
+    if (frame % 3 == 0) { //every third frame
       ballX += ballVolX;
       ballY += ballVolY;
 
       // change if hit top or bottom
       if (ballY <= 1 || ballY >= TV.vres() - 1)
       { ballVolY = -ballVolY;
-        delay(50);
+        delay(25);
         TV.tone( 2000, 30  );
       }
 
@@ -232,7 +233,7 @@ void loop() {
       if (ballVolX < 0 && ballX == LEFT_PADDLE_X + PADDLE_WIDTH - 1 && ballY >= leftPaddleY && ballY <= leftPaddleY + PADDLE_HEIGHT) {
         ballVolX = -ballVolX;
         ballVolY += 2 * ((ballY - leftPaddleY) - (PADDLE_HEIGHT / 2)) / (PADDLE_HEIGHT / 2);
-        delay(50);
+        delay(25);
         TV.tone(2000, 30 );
       }
 
@@ -240,7 +241,7 @@ void loop() {
       if (ballVolX > 0 && ballX == RIGHT_PADDLE_X && ballY >= rightPaddleY && ballY <= rightPaddleY + PADDLE_HEIGHT) {
         ballVolX = -ballVolX;
         ballVolY += 2 * ((ballY - rightPaddleY) - (PADDLE_HEIGHT / 2)) / (PADDLE_HEIGHT / 2);
-        delay(50);
+        delay(25);
         TV.tone( 2000, 30  );
       }
 
