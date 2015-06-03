@@ -1,5 +1,6 @@
 /*
 Title: The Matrix effect with TV and Arduino
+http://www.instructables.com/id/The-Matrix-effect-with-Arduino-and-TV/?ALLSTEPS
 Author: Ali Kazi
 Date Created: 12/10/2010
 Description: The program utilizes the TVout library which gives 
@@ -11,17 +12,20 @@ The program uses 3 sets of arrays; the first two specify where to print on the s
 using x & y values while the third one prints the characters themselves.
 
  This example code is in the public domain. 
+ 
+ 2015 06 04
+ Changed from NTSC to PAL
  */
 
 #include <TVout.h>
-#include <pollserial.h>
+//#include <pollserial.h>
 #include <fontALL.h>
 
 unsigned char a;
 int i=0;
 
 TVout TV;
-pollserial pserial;
+//pollserial pserial;
 float d = 0.0;
 unsigned char x[10];
 unsigned char y[10];
@@ -33,9 +37,9 @@ void setup()  {
   randomSeed(analogRead(A1));
   pinMode(A0, INPUT);
   pinMode(2, OUTPUT);
-  TV.begin(_NTSC,142,104);
+  TV.begin(_PAL,142,104);
   TV.select_font(font8x8);
-  TV.set_hbi_hook(pserial.begin(57600));
+  //TV.set_hbi_hook(pserial.begin(57600));
   
   for(a=0;a<10;a++)
   {
