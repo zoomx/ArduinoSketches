@@ -1,3 +1,11 @@
+/*
+ Efeito Matrix on TVout
+ by Gustavo Sampaio
+ https://bitunico.wordpress.com/2012/08/07/conectando-o-arduino-a-tv-hackeando-a-tv/
+ https://github.com/GustavoKatel
+
+*/
+
 #include <TVout.h>
 #include <fontALL.h>
  
@@ -7,7 +15,7 @@ char chs[]={'#','$','%','&','a','L'};
  
 void setup()
 {
-   tv.begin(NTSC,120,96);
+   tv.begin(PAL,120,96);
    tv.select_font(font6x8);
    tv.println("nn   GustavoKatel");
    tv.delay(3000);
