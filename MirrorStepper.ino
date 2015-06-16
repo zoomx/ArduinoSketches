@@ -1,45 +1,34 @@
 /*
-Stepper02
+Stepper03
  http://www.schmalzhaus.com/EasyDriver/Examples/EasyDriverExamples.html
  
+ 
+ NON FUNZIONA CON LA SCHEDA RS e il motore RS
  */
 
-int Distance = 0;  // Record the number of steps we've taken
+#include <AccelStepper.h>
 
-void setup() {
+// Define a stepper and the pins it will use
+AccelStepper stepper(1, 9, 8);
+
+int pos = 600;
+
+void setup()
+{  
   Serial.begin(9600);
-  Serial.println("Stepper02");  
-  pinMode(8, OUTPUT);     
-  pinMode(9, OUTPUT);
-  digitalWrite(8, LOW);
-  digitalWrite(9, LOW);
+  Serial.println("Stepper03");  
+  stepper.setMaxSpeed(20);
+  stepper.setAcceleration(5);
+  stepper.setMinPulseWidth(2000);
 }
 
-void loop() {
-  digitalWrite(9, HIGH);
-  delayMicroseconds(4000);          
-  digitalWrite(9, LOW); 
-  delayMicroseconds(4000);
-  Distance = Distance + 1;   // record this step
-
-  // Check to see if we are at the end of our move
-  if (Distance == 600)
+void loop()
+{
+  if (stepper.distanceToGo() == 0)
   {
-    // We are! Reverse direction (invert DIR signal)
-    if (digitalRead(8) == LOW)
-    {
-      digitalWrite(8, HIGH);
-    }
-    else
-    {
-      digitalWrite(8, LOW);
-    }
-    // Reset our distance back to zero since we're
-    // starting a new move
-    Distance = 0;
-    // Now pause for half a second
-    delay(1000);
+    delay(500);
+    pos = -pos;
+    stepper.moveTo(pos);
   }
+  stepper.run();
 }
-
-
