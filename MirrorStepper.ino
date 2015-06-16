@@ -1,11 +1,12 @@
 /*
 ********************
-* MirrorStepper02  *
+* MirrorStepper03  *
 ********************
 
  Control of a mirror with pan and tilt and two relays
  Installed at La Montagnola station to control
- FTIR mirror and two power sokets.	
+ FTIR mirror and two power sokets.
+A servo controls the camera position.
 
  was Stepper05SerialControl2
  Added serial control
@@ -15,12 +16,14 @@
 
  Added Relay control
 
- Still eed optimisation to remove doubled functions
+ Need optimisation to remove doubled functions
 
- 2015 02 25 by zoomx
+ 2015 02 25 by Zoomx
 
- 2015 05 20 by zoomx
+ 2015 05 20 by Zoomx
 
+ 2015 06 11 by Zoomx
+ Added Servo control
  */
 
 #define LEDPIN 13  //Led is on pin 13 in Arduino UNO boards.
@@ -35,19 +38,29 @@
 #define RELAY1 2
 #define RELAY2 10
 
+#define SERVO 11
+#define STARTPOSITION 90
+#define PARKPOSITION 80
+#define VIEWPOSITION 100
+
 #define DELAY 2000
 
+#include <Servo.h>
+Servo Servocamera;
+
 //Serial input with termination section
-#define INLENGTH 5          //Max string lenght over serial. Needed for input with termination
+#define INLENGTH 6          //Max string lenght over serial. Needed for input with termination
 #define INTERMINATOR 13     //GetCharFromSerial routine cycle waiting for this character. Needed for input with termination
 char inString[INLENGTH + 1]; //GetCharFromSerial returns this char array. Needed for input with termination
 char comm;  //First character received. Needed for input with termination
 
 int Distance = 0;  // Record the number of steps we've taken
 
+int angle;
+
 void PrintVersion() {
-  Serial.println("MirrorStepper02");
-  Serial.print(F("Version 0.2"));
+  Serial.println("MirrorStepperServo03");
+  Serial.print(F("Version 0.1"));
   Serial.print(__DATE__);  //this is the compiling date
   Serial.print(F(" "));
   Serial.println(__TIME__); //this is the compiling time
@@ -122,6 +135,7 @@ void PrintMenu() {
   Serial.println(F("r relay1 on  | s relay1 off"));
   Serial.println(F("t relay2 on  | u relay2 off"));
 
+  Serial.println(F("w Move Servo"));
   Serial.println(F("v Print version"));
   Serial.println(F("B Blink LED 13"));
   Serial.println(F("m print menu"));
@@ -241,6 +255,30 @@ void ParseMenu(char Stringa) {
     case 'v':
       PrintVersion();
       break;
+    case 'w':
+      /*
+      Serial.write(inString[1]);
+      Serial.write(inString[2]);
+      Serial.write(inString[3]);
+      */
+      inString[4] = '\0';
+      inString[0] = '0';
+      //Serial.println();
+      //Serial.println(atoi(inString));
+      //sscanf(inString, "%d", &angle);
+      //angle=100*atoi(inString[1])+10*atoi(inString[2])+atoi(inString[3]);
+      angle=atoi(inString);
+      Serial.println(angle);
+      if (angle > 180)
+      {
+        angle=180;
+      }
+            if (angle < 0)
+      {
+        angle=0;
+      }
+      Servocamera.write(angle);
+      break;
     default:
       Serial.print(F("Command Unknown! ->"));
       Serial.println(Stringa, HEX);
@@ -255,7 +293,7 @@ void ParseMenu(char Stringa) {
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("MirrorStepper02");
+  Serial.println("MirrorStepperServo03");
 
   pinMode(STEP1DIR, OUTPUT);
   pinMode(STEP1PULSE, OUTPUT);
@@ -265,8 +303,8 @@ void setup() {
 
   pinMode(RELAY1, OUTPUT);
   pinMode(RELAY2, OUTPUT);
-  
-  pinMode(LEDPIN,OUTPUT);
+
+  pinMode(LEDPIN, OUTPUT);
 
   digitalWrite(STEP1DIR, LOW);
   digitalWrite(STEP1PULSE, LOW);
@@ -276,8 +314,11 @@ void setup() {
 
   digitalWrite(RELAY1, LOW);
   digitalWrite(RELAY2, LOW);
-  
+
   digitalWrite(LEDPIN, LOW);
+
+  Servocamera.attach(SERVO);
+  Servocamera.write(STARTPOSITION);
 }
 
 void loop() {
