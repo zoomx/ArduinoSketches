@@ -1,11 +1,14 @@
 /*
-Stepper01
-http://www.schmalzhaus.com/EasyDriver/Examples/EasyDriverExamples.html
+Stepper02
+ http://www.schmalzhaus.com/EasyDriver/Examples/EasyDriverExamples.html
+ 
+ */
 
-*/
+int Distance = 0;  // Record the number of steps we've taken
+
 void setup() {
   Serial.begin(9600);
-  Serial.println("Stepper01");
+  Serial.println("Stepper02");  
   pinMode(8, OUTPUT);     
   pinMode(9, OUTPUT);
   digitalWrite(8, LOW);
@@ -14,8 +17,29 @@ void setup() {
 
 void loop() {
   digitalWrite(9, HIGH);
-  delay(1);          
+  delayMicroseconds(4000);          
   digitalWrite(9, LOW); 
-  delay(1);          
+  delayMicroseconds(4000);
+  Distance = Distance + 1;   // record this step
+
+  // Check to see if we are at the end of our move
+  if (Distance == 600)
+  {
+    // We are! Reverse direction (invert DIR signal)
+    if (digitalRead(8) == LOW)
+    {
+      digitalWrite(8, HIGH);
+    }
+    else
+    {
+      digitalWrite(8, LOW);
+    }
+    // Reset our distance back to zero since we're
+    // starting a new move
+    Distance = 0;
+    // Now pause for half a second
+    delay(1000);
+  }
 }
+
 
