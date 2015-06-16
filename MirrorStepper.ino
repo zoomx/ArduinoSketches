@@ -1,15 +1,26 @@
 /*
-Stepper05SerialControl2
+********************
+* MirrorStepper02  *
+********************
+
+ Control of a mirror with pan and tilt and two relays
+ Installed at La Montagnola station to control
+ FTIR mirror and two power sokets.	
+
+ was Stepper05SerialControl2
  Added serial control
  two Stepper Motor Control
  Move the motor depending on commands received
  Using two EasyDriver stepper module
- 
+
  Added Relay control
- 
- Need optimisation to remove doubled functions
- 
+
+ Still eed optimisation to remove doubled functions
+
  2015 02 25 by zoomx
+
+ 2015 05 20 by zoomx
+
  */
 
 #define LEDPIN 13  //Led is on pin 13 in Arduino UNO boards.
@@ -29,21 +40,21 @@ Stepper05SerialControl2
 //Serial input with termination section
 #define INLENGTH 5          //Max string lenght over serial. Needed for input with termination
 #define INTERMINATOR 13     //GetCharFromSerial routine cycle waiting for this character. Needed for input with termination
-char inString[INLENGTH+1];  //GetCharFromSerial returns this char array. Needed for input with termination
+char inString[INLENGTH + 1]; //GetCharFromSerial returns this char array. Needed for input with termination
 char comm;  //First character received. Needed for input with termination
 
 int Distance = 0;  // Record the number of steps we've taken
 
-void PrintVersion(){
-  Serial.println("Stepper05SerialControl2");
-  Serial.print(F("Version 0.1"));
+void PrintVersion() {
+  Serial.println("MirrorStepper02");
+  Serial.print(F("Version 0.2"));
   Serial.print(__DATE__);  //this is the compiling date
   Serial.print(F(" "));
   Serial.println(__TIME__); //this is the compiling time
   Serial.println();
 }
 
-void GetCharFromSerial(){
+void GetCharFromSerial() {
   //Get string from serial and put in inString
   //first letter in comm
   //http://forums.adafruit.com/viewtopic.php?f=8&t=9918
@@ -56,15 +67,15 @@ void GetCharFromSerial(){
     inString[inCount] = Serial.read();       // get it
     if (inString [inCount] == INTERMINATOR) break;  //it is the terminator?  //MANCA IL CONTROLLO SULLA LUNGHEZZA!!
     // CI VUOLE UN OR tipo "or inCount == INLENGTH"
-  } 
-  while(++inCount < INLENGTH);
+  }
+  while (++inCount < INLENGTH);
   inString[inCount] = 0;                     // null terminate the string
   //Serial.print(F("R1 "));  //Only for debug
   //Serial.println(inString);
-  comm=inString[0];
+  comm = inString[0];
 }
 
-void Blink(){
+void Blink() {
   // Serial.println(F("Blink LED"));  //Only for debug
   digitalWrite(LEDPIN, HIGH);   // turn the LED on (HIGH is the voltage level)
   delay(100);               // wait for a second
@@ -72,48 +83,70 @@ void Blink(){
 }
 
 
-void PrintMenu(){
-  Serial.println(F("1 1 One step"));
-  Serial.println(F("2 1 -One step"));
-  Serial.println(F("3 1 10 step"));
-  Serial.println(F("4 1 -10 step"));
-  Serial.println(F("5 1 50 step"));
-  Serial.println(F("6 1 -50 step"));
+void PrintMenu() {
+  /*
+    Serial.println(F("1 1 One step"));
+    Serial.println(F("2 1 -One step"));
+    Serial.println(F("3 1 10 step"));
+    Serial.println(F("4 1 -10 step"));
+    Serial.println(F("5 1 50 step"));
+    Serial.println(F("6 1 -50 step"));
 
-  Serial.println(F("a 2 One step"));
-  Serial.println(F("b 2 -One step"));
-  Serial.println(F("c 2 10 step"));
-  Serial.println(F("d 2 -10 step"));
-  Serial.println(F("e 2 50 step"));
-  Serial.println(F("f 2 -50 step"));
+    Serial.println(F("a 2 One step"));
+    Serial.println(F("b 2 -One step"));
+    Serial.println(F("c 2 10 step"));
+    Serial.println(F("d 2 -10 step"));
+    Serial.println(F("e 2 50 step"));
+    Serial.println(F("f 2 -50 step"));
 
-  Serial.println(F("r relay1 on"));
-  Serial.println(F("s relay1 off"));
-  Serial.println(F("t relay2 on"));
-  Serial.println(F("u relay2 off"));
+    Serial.println(F("r relay1 on"));
+    Serial.println(F("s relay1 off"));
+    Serial.println(F("t relay2 on"));
+    Serial.println(F("u relay2 off"));
+
+    Serial.println(F("v Print version"));
+    Serial.println(F("B Blink LED 13"));
+    Serial.println(F("m print menu"));
+    Serial.println(F("--------------------"));
+    Serial.println(F("Type number and press enter"));
+   */
+
+  Serial.println(F("1 1 One step | 2 1 -One step"));
+  Serial.println(F("3 1 10 step  | 4 1 -10 step"));
+  Serial.println(F("5 1 50 step  | 6 1 -50 step"));
+
+  Serial.println(F("a 2 One step | b 2 -One step"));
+  Serial.println(F("c 2 10 step  | d 2 -10 step"));
+  Serial.println(F("e 2 50 step  | f 2 -50 step"));
+
+  Serial.println(F("r relay1 on  | s relay1 off"));
+  Serial.println(F("t relay2 on  | u relay2 off"));
 
   Serial.println(F("v Print version"));
   Serial.println(F("B Blink LED 13"));
   Serial.println(F("m print menu"));
   Serial.println(F("--------------------"));
   Serial.println(F("Type number and press enter"));
+
+
+
 }
 
-void Step(){
+void Step() {
   digitalWrite(STEP1PULSE, HIGH);
-  delayMicroseconds(DELAY);          
-  digitalWrite(STEP1PULSE, LOW); 
+  delayMicroseconds(DELAY);
+  digitalWrite(STEP1PULSE, LOW);
   delayMicroseconds(DELAY);
 }
 
-void Step2(){
+void Step2() {
   digitalWrite(STEP2PULSE, HIGH);
-  delayMicroseconds(DELAY);          
-  digitalWrite(STEP2PULSE, LOW); 
+  delayMicroseconds(DELAY);
+  digitalWrite(STEP2PULSE, LOW);
   delayMicroseconds(DELAY);
 }
 
-void Steps(int passi, int dir){
+void Steps(int passi, int dir) {
   if (dir == 1)
   {
     digitalWrite(STEP1DIR, HIGH);
@@ -122,13 +155,13 @@ void Steps(int passi, int dir){
   {
     digitalWrite(STEP1DIR, LOW);
   }
-  for (int i=0; i <= passi; i++){
+  for (int i = 0; i <= passi; i++) {
     Step();
     //delay(10);
   }
 }
 
-void Steps2(int passi, int dir){
+void Steps2(int passi, int dir) {
   if (dir == 1)
   {
     digitalWrite(STEP2DIR, HIGH);
@@ -137,93 +170,103 @@ void Steps2(int passi, int dir){
   {
     digitalWrite(STEP2DIR, LOW);
   }
-  for (int i=0; i <= passi; i++){
+  for (int i = 0; i <= passi; i++) {
     Step2();
     //delay(10);
   }
 }
 
-void ParseMenu(char Stringa){
+void ParseMenu(char Stringa) {
   //Serial.println(F("Parsing")); //Only for debug
+  boolean IsKnownCommand = true;
   switch (Stringa) {
-  case '1':
-    Steps(1,0);
-    break;
-  case '2':
-    Steps(1,1);
-    break;
-  case '3':
-    Steps(10,0);
-    break;
-  case '4':
-    Steps(10,1);
-    break;
-  case '5':
-    Steps(50,0);
-    break;
-  case '6':
-    Steps(50,1);
-    break;
-  case 'a':
-    Steps2(1,0);
-    break;
-  case 'b':
-    Steps2(1,1);
-    break;
-  case 'c':
-    Steps2(10,0);
-    break;
-  case 'd':
-    Steps2(10,1);
-    break;
-  case 'e':
-    Steps2(50,0);
-    break;
-  case 'f':
-    Steps2(50,1);
-    break;
+    case '1':
+      Steps(1, 0);
+      break;
+    case '2':
+      Steps(1, 1);
+      break;
+    case '3':
+      Steps(10, 0);
+      break;
+    case '4':
+      Steps(10, 1);
+      break;
+    case '5':
+      Steps(50, 0);
+      break;
+    case '6':
+      Steps(50, 1);
+      break;
+    case 'a':
+      Steps2(1, 0);
+      break;
+    case 'b':
+      Steps2(1, 1);
+      break;
+    case 'c':
+      Steps2(10, 0);
+      break;
+    case 'd':
+      Steps2(10, 1);
+      break;
+    case 'e':
+      Steps2(50, 0);
+      break;
+    case 'f':
+      Steps2(50, 1);
+      break;
 
-  case 'r':
-    digitalWrite(RELAY1, HIGH);
-    break;
-  case 's':
-    digitalWrite(RELAY1, LOW);
-    break;
-  case 't':
-    digitalWrite(RELAY2, HIGH);
-    break;
-  case 'u':
-    digitalWrite(RELAY2, LOW);
-    break;
+    case 'r':
+      digitalWrite(RELAY1, HIGH);
+      break;
+    case 's':
+      digitalWrite(RELAY1, LOW);
+      break;
+    case 't':
+      digitalWrite(RELAY2, HIGH);
+      break;
+    case 'u':
+      digitalWrite(RELAY2, LOW);
+      break;
 
 
-  case 'm':
-    PrintMenu();
-    break;
-  case 'B':
+    case 'm':
+      PrintMenu();
+      IsKnownCommand = false;  //because we don't need OK
+      break;
+    case 'B':
+      Blink();
+      break;
+    case 'v':
+      PrintVersion();
+      break;
+    default:
+      Serial.print(F("Command Unknown! ->"));
+      Serial.println(Stringa, HEX);
+      IsKnownCommand = false;
+  }
+  if (IsKnownCommand == true)
+  {
+    Serial.println(F("OK"));
     Blink();
-    break;
-  case 'v':
-    PrintVersion();
-    break;
-  default:
-    Serial.print(F("Command Unknown! ->"));
-    Serial.println(Stringa,HEX);
   }
 }
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Stepper05SerialControl2");
+  Serial.println("MirrorStepper02");
 
-  pinMode(STEP1DIR, OUTPUT);     
+  pinMode(STEP1DIR, OUTPUT);
   pinMode(STEP1PULSE, OUTPUT);
 
-  pinMode(STEP2DIR, OUTPUT);     
+  pinMode(STEP2DIR, OUTPUT);
   pinMode(STEP2PULSE, OUTPUT);
 
   pinMode(RELAY1, OUTPUT);
   pinMode(RELAY2, OUTPUT);
+  
+  pinMode(LEDPIN,OUTPUT);
 
   digitalWrite(STEP1DIR, LOW);
   digitalWrite(STEP1PULSE, LOW);
@@ -233,6 +276,8 @@ void setup() {
 
   digitalWrite(RELAY1, LOW);
   digitalWrite(RELAY2, LOW);
+  
+  digitalWrite(LEDPIN, LOW);
 }
 
 void loop() {
