@@ -5,7 +5,9 @@ Stepper05SerialControl2
  Move the motor depending on commands received
  Using two EasyDriver stepper module
  
- Need optimisation to remove doubled finctions
+ Added Relay control
+ 
+ Need optimisation to remove doubled functions
  
  2015 02 25 by zoomx
  */
@@ -18,6 +20,9 @@ Stepper05SerialControl2
 #define STEP2PULSE 6
 #define STEP2DIR 5
 #define STEP2HALF 4
+
+#define RELAY1 2
+#define RELAY2 10
 
 #define DELAY 2000
 
@@ -81,6 +86,11 @@ void PrintMenu(){
   Serial.println(F("d 2 -10 step"));
   Serial.println(F("e 2 50 step"));
   Serial.println(F("f 2 -50 step"));
+
+  Serial.println(F("r relay1 on"));
+  Serial.println(F("s relay1 off"));
+  Serial.println(F("t relay2 on"));
+  Serial.println(F("u relay2 off"));
 
   Serial.println(F("v Print version"));
   Serial.println(F("B Blink LED 13"));
@@ -172,6 +182,21 @@ void ParseMenu(char Stringa){
   case 'f':
     Steps2(50,1);
     break;
+
+  case 'r':
+    digitalWrite(RELAY1, HIGH);
+    break;
+  case 's':
+    digitalWrite(RELAY1, LOW);
+    break;
+  case 't':
+    digitalWrite(RELAY2, HIGH);
+    break;
+  case 'u':
+    digitalWrite(RELAY2, LOW);
+    break;
+
+
   case 'm':
     PrintMenu();
     break;
@@ -189,15 +214,25 @@ void ParseMenu(char Stringa){
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Stepper05SerialControl2");  
+  Serial.println("Stepper05SerialControl2");
+
   pinMode(STEP1DIR, OUTPUT);     
   pinMode(STEP1PULSE, OUTPUT);
+
   pinMode(STEP2DIR, OUTPUT);     
   pinMode(STEP2PULSE, OUTPUT);
+
+  pinMode(RELAY1, OUTPUT);
+  pinMode(RELAY2, OUTPUT);
+
   digitalWrite(STEP1DIR, LOW);
   digitalWrite(STEP1PULSE, LOW);
+
   digitalWrite(STEP2DIR, LOW);
   digitalWrite(STEP2PULSE, LOW);
+
+  digitalWrite(RELAY1, LOW);
+  digitalWrite(RELAY2, LOW);
 }
 
 void loop() {
