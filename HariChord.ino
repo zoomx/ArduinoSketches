@@ -1,4 +1,12 @@
 /*********************************************************************
+
+Hary Chord for OLED 128x64
+by hwiguna
+https://github.com/hwiguna
+Taken from
+https://raw.githubusercontent.com/hwiguna/g33k/master/ArduinoProjects/2015/128x64_OLED/_128x64_OLED/_128x64_OLED.ino
+
+Adafruit code license
 This is an example for our Monochrome OLEDs based on SSD1306 drivers
 
   Pick one up today in the adafruit shop!
