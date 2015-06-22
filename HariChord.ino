@@ -5,6 +5,11 @@ by hwiguna
 https://github.com/hwiguna
 Taken from
 https://raw.githubusercontent.com/hwiguna/g33k/master/ArduinoProjects/2015/128x64_OLED/_128x64_OLED/_128x64_OLED.ino
+Video
+https://www.youtube.com/watch?v=_t_lfcGV_YM
+
+Changed for I2C OLED Module by Zoomx
+22/06/2015
 
 Adafruit code license
 This is an example for our Monochrome OLEDs based on SSD1306 drivers
@@ -29,20 +34,9 @@ All text above, and the splash screen must be included in any redistribution
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-// If using software SPI (the default case):
-#define OLED_MOSI   9
-#define OLED_CLK   10
-#define OLED_DC    11
-#define OLED_CS    12
-#define OLED_RESET 13
-Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
-
-/* Uncomment this block to use hardware SPI
-#define OLED_DC     6
-#define OLED_CS     7
-#define OLED_RESET  8
-Adafruit_SSD1306 display(OLED_DC, OLED_RESET, OLED_CS);
-*/
+//I2C
+#define OLED_RESET 4
+Adafruit_SSD1306 display(OLED_RESET);
 
 #define NUMFLAKES 10
 #define XPOS 0
